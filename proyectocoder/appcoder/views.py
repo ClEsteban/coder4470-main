@@ -7,6 +7,12 @@ def inicio(request):
     return render(request, "appcoder/index.html")
 
 def cursos(request):
+    #obtenemos el listado de objetos de la base de datos
+    cursos = Curso.objects.all()
+
+    for curso in cursos:
+        print(curso.nombre)
+
     return render(request, "appcoder/cursos.html")
     
 def estudiantes(request):
