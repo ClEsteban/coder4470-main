@@ -8,12 +8,23 @@ def inicio(request):
 
 def cursos(request):
     #obtenemos el listado de objetos de la base de datos
-    cursos = Curso.objects.all()
+    #cursos = Curso.objects.all()
 
-    for curso in cursos:
-        print(curso.nombre)
+    #for curso in cursos:
+     #   print(curso.nombre)
 
     return render(request, "appcoder/cursos.html")
+
+def creacion_curso(request):
+    if request.method == "POST":
+        nombre_curso = request.POST["curso"]
+        numero_camada = int(request.POST["camada"])
+
+        curso = Curso(nombre=nombre_curso, camada=numero_camada)
+        curso.save()
+        
+    return render(request, "appcoder/curso_formulario.html" )
+
     
 def estudiantes(request):
     return render(request, "appcoder/estudiantes.html")

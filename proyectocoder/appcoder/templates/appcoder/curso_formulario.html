@@ -1,0 +1,20 @@
+{% extends 'appcoder/base.html' %}
+
+{% load static %}
+
+{% block contenidoQueCambia%}
+
+<form action="/coder/cursos/crear/" method="POST">
+    {% csrf_token %}
+    <p>
+        curso: <input type="text" name="curso">        
+    </p>
+
+    <p>
+        camada: <input type="number" name="camada">        
+    </p>
+
+    <input type="submit" value="Crear curso">
+</form>
+
+{% endblock %}
