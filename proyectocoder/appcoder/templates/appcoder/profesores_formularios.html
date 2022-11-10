@@ -1,0 +1,22 @@
+{% extends 'appcoder/base.html' %}
+
+{% load static %}
+
+{% block contenidoQueCambia%}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    
+    <table>
+
+        {{ formulario.as_p }}
+
+
+
+    </table>
+
+    <input type="submit" value="Cargar Profesor">
+
+</form>
+
+{% endblock %}

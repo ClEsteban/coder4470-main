@@ -1,5 +1,6 @@
 from django.http import HttpResponse
-from appcoder.models import Curso
+from appcoder.models import Curso, Profesor
+from appcoder.forms import ProfesorFormulario
 from django.shortcuts import render
 
 
@@ -25,12 +26,42 @@ def creacion_curso(request):
         
     return render(request, "appcoder/curso_formulario.html" )
 
+def creacion_profesores(request):
+
+    if request.method == "POST":
+        formulario = ProfesorFormulario(request.POST)
+
+        #validamos que el formulario no tenga problemas
+        if formulario.is_valid():
+        #recuperamos los datos del atributo cleaned_data
+            data = formulario.cleaned_data
+
+            profesor = Profesor(nombre = data["nombre"], apellido = data["apellido"], email = data["email"], profesion=data["profesion"])
+
+            profesor.save()
+ 
+    formulario = ProfesorFormulario()
+
+    contexto = {"formulario": formulario}
+    return render(request, "appcoder/profesores_formularios.html", contexto)
+
     
 def estudiantes(request):
     return render(request, "appcoder/estudiantes.html")
 
 def profesores(request):
     return render(request, "appcoder/profesores.html")
+
+
+def buscar_curso(request):
+    return render(request, "appcoder/busqueda_cursos.html")
+
+def resultado_busqueda_cursos(request):
+    nombre_curso = request.GET["nombre_curso"]
+
+    cursos = Curso.objects.filter(nombre__icontains = nombre_curso)
+    return render(request, "appcoder/resultados_busquedas_cursos.html", {"cursos": cursos})
+    
 
 def entregables(request):
         return render(request, "appcoder/entregables.html")
